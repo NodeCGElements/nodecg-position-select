@@ -1,0 +1,278 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
+<link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../nodecg-replicant/nodecg-replicant-targeting.html">
+<link rel="import" href="./nodecg-position-select-selector.html">
+
+<!--
+`nodecg-position-select` is a control used to select the position of an element. It automatically binds to a Replicant
+and therefore propogates changes across the stack.
+
+	<nodecg-position-select replicant-name="position"></nodecg-position-select>
+
+To change what options are present, set the `type` attribute:
+- `corner` - Pick from one of four corners.
+- `cardinal` - Pick from one of the four cardinal directions (up, down, left, right).
+- `cardinal-corner` - Pick from a corner or cardinal direction.
+- `vertical` - Pick only up or down.
+- `horizontal` - Pick only left or right.
+
+See the demo page for examples of all of the above.
+
+    <nodecg-position-select replicant-name="position" type="corner"></nodecg-position-select>
+
+@group NodeCG Elements
+@element nodecg-position-select
+@demo demo/index.html
+-->
+
+<dom-module id="nodecg-position-select">
+	<style>
+		#label {
+			@apply(--paper-font-body2);
+		}
+
+		paper-button {
+			margin: 0;
+		}
+
+		.row {
+			@apply(--layout-horizontal);
+			@apply(--layout-center-justified);
+		}
+
+		#metaSelector > :not(.iron-selected) {
+			display: none;
+		}
+
+		.userSelector {
+			@apply(--layout-vertical);
+		}
+
+		.userSelector .iron-selected {
+			background: var(--paper-light-blue-400);
+			transition: background 125ms linear;
+		}
+	</style>
+
+	<template>
+		<div id="label">{{label}}</div>
+		<iron-selector id="metaSelector" attr-for-selected="id" selected="{{type}}">
+			<nodecg-position-select-selector id="cardinal-corner" selectable=".option" class="userSelector">
+				<div class="row">
+					<paper-button class="option" data-vert="top" data-horiz="left">
+						<iron-icon icon="arrow-back" style="transform: rotate(45deg);"></iron-icon>
+					</paper-button>
+
+					<paper-button class="option" data-vert="top" data-horiz="center">
+						<iron-icon icon="arrow-upward"></iron-icon>
+					</paper-button>
+
+					<paper-button class="option" data-vert="top" data-horiz="right">
+						<iron-icon icon="arrow-forward" style="transform: rotate(-45deg);"></iron-icon>
+					</paper-button>
+				</div>
+
+				<div class="row">
+					<paper-button class="option" data-vert="center" data-horiz="left">
+						<iron-icon icon="arrow-back"></iron-icon>
+					</paper-button>
+
+					<paper-button disabled></paper-button>
+
+					<paper-button class="option" data-vert="center" data-horiz="right">
+						<iron-icon icon="arrow-forward"></iron-icon>
+					</paper-button>
+
+				</div>
+
+				<div class="row">
+					<paper-button class="option" data-vert="bottom" data-horiz="left">
+						<iron-icon icon="arrow-back" style="transform: rotate(-45deg);"></iron-icon>
+					</paper-button>
+
+					<paper-button class="option" data-vert="bottom" data-horiz="center">
+						<iron-icon icon="arrow-downward"></iron-icon>
+					</paper-button>
+
+					<paper-button class="option" data-vert="bottom" data-horiz="right">
+						<iron-icon icon="arrow-forward" style="transform: rotate(45deg);"></iron-icon>
+					</paper-button>
+				</div>
+			</nodecg-position-select-selector>
+
+			<iron-selector id="cardinal" selectable=".option" class="userSelector">
+				<div class="row">
+					<paper-button class="option" data-vert="top" data-horiz="center">
+						<iron-icon icon="arrow-upward"></iron-icon>
+					</paper-button>
+				</div>
+
+				<div class="row">
+					<paper-button class="option" data-vert="center" data-horiz="left">
+						<iron-icon icon="arrow-back"></iron-icon>
+					</paper-button>
+
+					<paper-button class="option" data-vert="bottom" data-horiz="center">
+						<iron-icon icon="arrow-downward"></iron-icon>
+					</paper-button>
+
+					<paper-button class="option" data-vert="center" data-horiz="right">
+						<iron-icon icon="arrow-forward"></iron-icon>
+					</paper-button>
+				</div>
+			</iron-selector>
+
+			<iron-selector id="corner" selectable=".option" class="userSelector">
+				<div class="row">
+					<paper-button class="option" data-vert="top" data-horiz="left">
+						<iron-icon icon="arrow-back" style="transform: rotate(45deg);"></iron-icon>
+					</paper-button>
+
+					<paper-button class="option" data-vert="top" data-horiz="right">
+						<iron-icon icon="arrow-forward" style="transform: rotate(-45deg);"></iron-icon>
+					</paper-button>
+				</div>
+
+				<div class="row">
+					<paper-button class="option" data-vert="bottom" data-horiz="left">
+						<iron-icon icon="arrow-back" style="transform: rotate(-45deg);"></iron-icon>
+					</paper-button>
+
+					<paper-button class="option" data-vert="bottom" data-horiz="right">
+						<iron-icon icon="arrow-forward" style="transform: rotate(45deg);"></iron-icon>
+					</paper-button>
+				</div>
+			</iron-selector>
+
+			<iron-selector id="vertical" selectable=".option" class="userSelector">
+				<div class="row">
+					<paper-button class="option" data-vert="top">
+						<iron-icon icon="arrow-upward"></iron-icon>
+					</paper-button>
+				</div>
+
+				<div class="row">
+					<paper-button class="option" data-vert="bottom">
+						<iron-icon icon="arrow-downward"></iron-icon>
+					</paper-button>
+				</div>
+			</iron-selector>
+
+			<iron-selector id="horizontal" selectable=".option" class="userSelector">
+				<div class="row">
+					<paper-button class="option" data-horiz="left">
+						<iron-icon icon="arrow-back"></iron-icon>
+					</paper-button>
+
+					<paper-button class="option" data-horiz="right">
+						<iron-icon icon="arrow-forward"></iron-icon>
+					</paper-button>
+				</div>
+			</iron-selector>
+		</iron-selector>
+	</template>
+</dom-module>
+
+<script>
+
+
+	Polymer({
+		is: 'nodecg-position-select',
+
+		properties: {
+
+			/**
+			 * The label to show above the controls.
+			 */
+			label: {
+				type: String
+			},
+
+			/**
+			 * The default value to provide to the Replicant.
+			 * Must be an object with `horizPos` and `vertPos` properties.
+			 */
+			replicantDefault: {
+				type: Object,
+				value: {
+					horizPos: 'right',
+					vertPos: 'bottom'
+				}
+			},
+
+			/**
+			 * What type of controls to show. Valid values are `corner`, `cardinal`, `cardinal-corner`, `vertical`, and `horizontal`.
+			 */
+			type: {
+				type: String,
+				value: 'corner'
+			}
+		},
+
+		behaviors: [
+			Polymer.NodeCGReplicantTargetingBehavior
+		],
+
+		attached: function () {
+			var defaultHandler = function (e) {
+				var item = e.detail.item;
+				this.replicant.value.horizPos = item.getAttribute('data-horiz');
+				this.replicant.value.vertPos = item.getAttribute('data-vert');
+			}.bind(this);
+
+			// Most of the interfaces have the same iron-select logic.
+			this.$.cardinal.addEventListener('iron-select', defaultHandler);
+			this.$.corner.addEventListener('iron-select', defaultHandler);
+			this.$['cardinal-corner'].addEventListener('iron-select', defaultHandler);
+
+			// The vertical-only and horizontal-only interfaces have slightly different logic.
+			this.$.vertical.addEventListener('iron-select', function (e) {
+				var item = e.detail.item;
+				this.replicant.value.vertPos = item.getAttribute('data-vert');
+			}.bind(this));
+
+			this.$.horizontal.addEventListener('iron-select', function (e) {
+				var item = e.detail.item;
+				this.replicant.value.horizPos = item.getAttribute('data-horiz');
+			}.bind(this));
+		},
+
+		_replicantChanged: function (oldVal, newVal) {
+			var defaultHandler = function (item, index) {
+				var vert = item.getAttribute('data-vert');
+				var horiz = item.getAttribute('data-horiz');
+				if (vert === newVal.vertPos && horiz === newVal.horizPos) {
+					var selector = item.parentNode.parentNode; // This is very fragile!
+					selector.select(index);
+					return true;
+				}
+			};
+
+			// Most of the interfaces have the same replicant change handling logic.
+			this.$.cardinal.items.some(defaultHandler);
+			this.$.corner.items.some(defaultHandler);
+			this.$['cardinal-corner'].items.some(defaultHandler);
+
+			// The vertical-only and horizontal-only interfaces have slightly different logic.
+			this.$.vertical.items.some(function (item, index) {
+				var vert = item.getAttribute('data-vert');
+				if (vert === newVal.vertPos) {
+					this.$.vertical.select(index);
+					return true;
+				}
+			}.bind(this));
+
+			this.$.horizontal.items.some(function (item, index) {
+				var horiz = item.getAttribute('data-horiz');
+				if (horiz === newVal.horizPos) {
+					this.$.horizontal.select(index);
+					return true;
+				}
+			}.bind(this));
+		}
+	});
+</script>

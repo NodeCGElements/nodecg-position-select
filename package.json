@@ -1,0 +1,38 @@
+{
+  "name": "nodecg-position-select",
+  "version": "0.1.0",
+  "description": "A NodeCG dashboard element for selecting a position",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm run static",
+    "static": "npm run static:js && npm run static:polymer",
+    "static:polymer": "polylint -i nodecg-position-select.html",
+    "static:js": "eslint -c .eslintrc nodecg-position-select.html test/**/*.html demo/**/*.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://lange@github.com/NodeCGElements/nodecg-position-select.git"
+  },
+  "keywords": [
+    "nodecg",
+    "polymer",
+    "element",
+    "dashboard",
+    "position"
+  ],
+  "author": "Alex Van Camp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NodeCGElements/nodecg-position-select/issues"
+  },
+  "homepage": "http://nodecgelements.github.io/nodecg-position-select",
+  "devDependencies": {
+    "eslint": "^2.0.0",
+    "eslint-config-xo": "^0.10.1",
+    "eslint-plugin-html": "^1.4.0",
+    "polylint": "^2.9.1"
+  }
+}

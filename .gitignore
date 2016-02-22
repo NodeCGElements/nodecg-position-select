@@ -1,0 +1,13 @@
+# Node / Bower
+bower_components/
+node_modules/
+
+# OS specific
+.DS_Store
+
+# JetBrains IDEs (IntelliJ/WebStorm)
+.idea/
+*.iml
+
+# Code coverage results
+/coverage

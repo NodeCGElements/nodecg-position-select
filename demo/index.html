@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+	<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+	<link rel="import" href="../nodecg-position-select.html">
+
+	<style is="custom-style" include="demo-pages-shared-styles">
+		nodecg-position-select {
+			display: block;
+		}
+
+		.vertical-section-container {
+			max-width: 600px;
+		}
+	</style>
+</head>
+<body unresolved>
+	<div class="vertical-section-container centered">
+		<h3>Corner</h3>
+		<demo-snippet>
+			<template>
+				<nodecg-position-select replicant-name="position"></nodecg-position-select>
+			</template>
+		</demo-snippet>
+	</div>
+
+	<div class="vertical-section-container centered">
+		<h3>Cardinal</h3>
+		<demo-snippet>
+			<template>
+				<nodecg-position-select type="cardinal" replicant-name="position"></nodecg-position-select>
+			</template>
+		</demo-snippet>
+	</div>
+
+	<div class="vertical-section-container centered">
+		<h3>Cardinal plus corner</h3>
+		<demo-snippet>
+			<template>
+				<nodecg-position-select type="cardinal-corner" replicant-name="position"></nodecg-position-select>
+			</template>
+		</demo-snippet>
+	</div>
+
+	<div class="vertical-section-container centered">
+		<h3>Vertical only</h3>
+		<demo-snippet>
+			<template>
+				<nodecg-position-select type="vertical" replicant-name="position"></nodecg-position-select>
+			</template>
+		</demo-snippet>
+	</div>
+
+	<div class="vertical-section-container centered">
+		<h3>Horizontal only</h3>
+		<demo-snippet>
+			<template>
+				<nodecg-position-select type="horizontal" replicant-name="position"></nodecg-position-select>
+			</template>
+		</demo-snippet>
+	</div>
+
+	<div class="vertical-section-container centered">
+		<h3>Labels</h3>
+		<demo-snippet>
+			<template>
+				<nodecg-position-select label="Select a corner" replicant-name="position"></nodecg-position-select>
+			</template>
+		</demo-snippet>
+	</div>
+</body>
+</html>
