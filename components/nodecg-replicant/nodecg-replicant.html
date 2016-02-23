@@ -1,0 +1,25 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="nodecg-replicant-targeting.html">
+
+<!--
+The `nodecg-replicant` element binds to a Replicant. Once bound, the value of the replicant can be retrieved and set
+from the `value` property.
+
+    <nodecg-replicant replicant-name="myReplicant" replicant-bundle="my-bundle"></nodecg-replicant>
+
+This element is useful in cases where instantiating and binding to a replicant in a purely declarative fashion
+is desirable. For example, it can be used to create a two-way binding with a `paper-input` element.
+
+    <nodecg-replicant name="myReplicant" value="{{value}}"></nodecg-replicant>
+    <paper-input label="myReplicant" value="{{value}}"></paper-input>
+
+It is important to note that the replicant will not be declared until the element has been attached and the current
+task has finished. This is to avoid two-way binding conflicts. For example, when binding to an `iron-input`
+element, the `iron-input` will default to a `bind-value` of `""`, which would then be assigned to the Replicant,
+deleting the Replicant's intended value.
+
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<script src="nodecg-replicant.js"></script>

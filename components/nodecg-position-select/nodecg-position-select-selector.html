@@ -1,0 +1,30 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-selector/iron-selector.html">
+
+<script>
+(function () {
+	'use strict';
+
+	var MySelectableBehaviorImpl = {
+		_updateItems: function() {
+			var nodes = this.selectable
+					? Polymer.dom(this).querySelectorAll(this.selectable)
+					: Polymer.dom(this).queryDistributedElements('*');
+			nodes = Array.prototype.filter.call(nodes, this._bindFilterItem);
+			this._setItems(nodes);
+		}
+	};
+
+	var MySelectableBehavior = [
+		Polymer.IronSelectableBehavior,
+		MySelectableBehaviorImpl
+	];
+
+	Polymer({
+		is: 'nodecg-position-select-selector',
+		behaviors: [
+			MySelectableBehavior
+		]
+	});
+})();
+</script>

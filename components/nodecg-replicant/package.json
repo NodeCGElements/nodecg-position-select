@@ -1,0 +1,35 @@
+{
+  "name": "nodecg-replicant",
+  "version": "0.4.0",
+  "description": "A declarative implementation of NodeCG Replicants.",
+  "main": "nodecg-replicant.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodecg/nodecg-replicant.git"
+  },
+  "keywords": [
+    "nodecg",
+    "dashboard",
+    "panel",
+    "element",
+    "polymer",
+    "component"
+  ],
+  "author": "Alex Van Camp <email@alexvan.camp>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodecg/nodecg-replicant/issues"
+  },
+  "homepage": "https://github.com/nodecg/nodecg-replicant#readme",
+  "devDependencies": {
+    "browserify": "^11.2.0",
+    "minifyify": "^7.1.0"
+  },
+  "dependencies": {
+    "clone": "^1.0.2",
+    "object-path": "^0.9.2"
+  },
+  "scripts": {
+    "build": "browserify nodecg-replicant.src.js -d -p [minifyify --map nodecg-replicant.map.json --output nodecg-replicant.map.json ] > nodecg-replicant.js"
+  }
+}
