@@ -11,6 +11,9 @@
 `nodecg-position-select` is a control used to select the position of an element. It automatically binds to a Replicant
 and therefore propogates changes across the stack.
 
+You must provide a `replicant-name` when instantiating this element. The targeted Replicant
+must be an object with `vertPos` and `horizPos` properties.
+
 	<nodecg-position-select replicant-name="position"></nodecg-position-select>
 
 To change what options are present, set the `type` attribute:
