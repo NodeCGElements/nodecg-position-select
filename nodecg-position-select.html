@@ -107,7 +107,7 @@ See the demo page for examples of all of the above.
 				</div>
 			</nodecg-position-select-selector>
 
-			<iron-selector id="cardinal" selectable=".option" class="userSelector">
+			<nodecg-position-select-selector id="cardinal" selectable=".option" class="userSelector">
 				<div class="row">
 					<paper-button class="option" data-vert="top" data-horiz="center">
 						<iron-icon icon="arrow-upward"></iron-icon>
@@ -127,9 +127,9 @@ See the demo page for examples of all of the above.
 						<iron-icon icon="arrow-forward"></iron-icon>
 					</paper-button>
 				</div>
-			</iron-selector>
+			</nodecg-position-select-selector>
 
-			<iron-selector id="corner" selectable=".option" class="userSelector">
+			<nodecg-position-select-selector id="corner" selectable=".option" class="userSelector">
 				<div class="row">
 					<paper-button class="option" data-vert="top" data-horiz="left">
 						<iron-icon icon="arrow-back" style="transform: rotate(45deg);"></iron-icon>
@@ -149,9 +149,9 @@ See the demo page for examples of all of the above.
 						<iron-icon icon="arrow-forward" style="transform: rotate(45deg);"></iron-icon>
 					</paper-button>
 				</div>
-			</iron-selector>
+			</nodecg-position-select-selector>
 
-			<iron-selector id="vertical" selectable=".option" class="userSelector">
+			<nodecg-position-select-selector id="vertical" selectable=".option" class="userSelector">
 				<div class="row">
 					<paper-button class="option" data-vert="top">
 						<iron-icon icon="arrow-upward"></iron-icon>
@@ -163,9 +163,9 @@ See the demo page for examples of all of the above.
 						<iron-icon icon="arrow-downward"></iron-icon>
 					</paper-button>
 				</div>
-			</iron-selector>
+			</nodecg-position-select-selector>
 
-			<iron-selector id="horizontal" selectable=".option" class="userSelector">
+			<nodecg-position-select-selector id="horizontal" selectable=".option" class="userSelector">
 				<div class="row">
 					<paper-button class="option" data-horiz="left">
 						<iron-icon icon="arrow-back"></iron-icon>
@@ -175,14 +175,12 @@ See the demo page for examples of all of the above.
 						<iron-icon icon="arrow-forward"></iron-icon>
 					</paper-button>
 				</div>
-			</iron-selector>
+			</nodecg-position-select-selector>
 		</iron-selector>
 	</template>
 </dom-module>
 
 <script>
-
-
 	Polymer({
 		is: 'nodecg-position-select',
 
@@ -220,7 +218,7 @@ See the demo page for examples of all of the above.
 			Polymer.NodeCGReplicantTargetingBehavior
 		],
 
-		attached: function () {
+		ready: function () {
 			var defaultHandler = function (e) {
 				var item = e.detail.item;
 				this.replicant.value.horizPos = item.getAttribute('data-horiz');
