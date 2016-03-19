@@ -1,3 +1,13 @@
+<a name="0.1.3"></a>
+## [0.1.3](https://github.com/NodeCGElements/nodecg-position-select/compare/v0.1.2...v0.1.3) (2016-03-19)
+
+
+### Bug Fixes
+
+* **ui:** fix buttons sometimes not having a bg color when selected ([339b53b](https://github.com/NodeCGElements/nodecg-position-select/commit/339b53b))
+
+
+
 <a name="0.1.2"></a>
 ## [0.1.2](https://github.com/NodeCGElements/nodecg-position-select/compare/v0.1.1...v0.1.2) (2016-03-18)
 
