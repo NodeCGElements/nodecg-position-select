@@ -32,35 +32,35 @@ See the demo page for examples of all of the above.
 -->
 
 <dom-module id="nodecg-position-select">
-	<style>
-		#label {
-			@apply(--paper-font-body2);
-		}
-
-		paper-button {
-			margin: 0;
-		}
-
-		.row {
-			@apply(--layout-horizontal);
-			@apply(--layout-center-justified);
-		}
-
-		#metaSelector > :not(.iron-selected) {
-			display: none;
-		}
-
-		.userSelector {
-			@apply(--layout-vertical);
-		}
-
-		.userSelector .iron-selected {
-			background: #80cbc4;
-			transition: background 125ms linear;
-		}
-	</style>
-
 	<template>
+		<style>
+			#label {
+				@apply(--paper-font-body2);
+			}
+
+			paper-button {
+				margin: 0;
+			}
+
+			.row {
+				@apply(--layout-horizontal);
+				@apply(--layout-center-justified);
+			}
+
+			#metaSelector > :not(.iron-selected) {
+				display: none;
+			}
+
+			.userSelector {
+				@apply(--layout-vertical);
+			}
+
+			.userSelector .iron-selected {
+				background: #80cbc4;
+				transition: background 125ms linear;
+			}
+		</style>
+
 		<div id="label">{{label}}</div>
 		<iron-selector id="metaSelector" attr-for-selected="id" selected="{{type}}">
 			<nodecg-position-select-selector id="cardinal-corner" selectable=".option" class="userSelector">
@@ -177,102 +177,106 @@ See the demo page for examples of all of the above.
 			</nodecg-position-select-selector>
 		</iron-selector>
 	</template>
-</dom-module>
 
-<script>
-	Polymer({
-		is: 'nodecg-position-select',
+	<script>
+		Polymer({
+			is: 'nodecg-position-select',
 
-		properties: {
+			properties: {
 
-			/**
-			 * The label to show above the controls.
-			 */
-			label: {
-				type: String
-			},
+				/**
+				 * The label to show above the controls.
+				 */
+				label: {
+					type: String
+				},
 
-			/**
-			 * The default value to provide to the Replicant.
-			 * Must be an object with `horizPos` and `vertPos` properties.
-			 */
-			replicantDefault: {
-				type: Object,
-				value: {
-					horizPos: 'right',
-					vertPos: 'bottom'
+				/**
+				 * The default value to provide to the Replicant.
+				 * Must be an object with `horizPos` and `vertPos` properties.
+				 */
+				replicantDefault: {
+					type: Object,
+					value: {
+						horizPos: 'right',
+						vertPos: 'bottom'
+					}
+				},
+
+				/**
+				 * What type of controls to show. Valid values are `corner`, `cardinal`, `cardinal-corner`, `vertical`, and `horizontal`.
+				 */
+				type: {
+					type: String,
+					value: 'corner'
 				}
 			},
 
-			/**
-			 * What type of controls to show. Valid values are `corner`, `cardinal`, `cardinal-corner`, `vertical`, and `horizontal`.
-			 */
-			type: {
-				type: String,
-				value: 'corner'
+			behaviors: [
+				Polymer.NodeCGReplicantTargetingBehavior
+			],
+
+			ready() {
+				const defaultHandler = function (e) {
+					const item = e.detail.item;
+					this.replicant.value.horizPos = item.getAttribute('data-horiz');
+					this.replicant.value.vertPos = item.getAttribute('data-vert');
+				}.bind(this);
+
+				// Most of the interfaces have the same iron-select logic.
+				this.$.cardinal.addEventListener('iron-select', defaultHandler);
+				this.$.corner.addEventListener('iron-select', defaultHandler);
+				this.$['cardinal-corner'].addEventListener('iron-select', defaultHandler);
+
+				// The vertical-only and horizontal-only interfaces have slightly different logic.
+				this.$.vertical.addEventListener('iron-select', e => {
+					const item = e.detail.item;
+					this.replicant.value.vertPos = item.getAttribute('data-vert');
+				});
+
+				this.$.horizontal.addEventListener('iron-select', e => {
+					const item = e.detail.item;
+					this.replicant.value.horizPos = item.getAttribute('data-horiz');
+				});
+			},
+
+			_replicantChanged(newVal) {
+				const defaultHandler = function (item, index) {
+					const vert = item.getAttribute('data-vert');
+					const horiz = item.getAttribute('data-horiz');
+					if (vert === newVal.vertPos && horiz === newVal.horizPos) {
+						const selector = item.parentNode.parentNode; // This is very fragile!
+						selector.select(index);
+						return true;
+					}
+				};
+
+				// Most of the interfaces have the same replicant change handling logic.
+				this.$.cardinal.items.some(defaultHandler);
+				this.$.corner.items.some(defaultHandler);
+				this.$['cardinal-corner'].items.some(defaultHandler);
+
+				// The vertical-only and horizontal-only interfaces have slightly different logic.
+				this.$.vertical.items.some((item, index) => {
+					const vert = item.getAttribute('data-vert');
+					if (vert === newVal.vertPos) {
+						this.$.vertical.select(index);
+						return true;
+					}
+
+					return false;
+				});
+
+				this.$.horizontal.items.some((item, index) => {
+					const horiz = item.getAttribute('data-horiz');
+					if (horiz === newVal.horizPos) {
+						this.$.horizontal.select(index);
+						return true;
+					}
+
+					return false;
+				});
 			}
-		},
-
-		behaviors: [
-			Polymer.NodeCGReplicantTargetingBehavior
-		],
-
-		ready: function () {
-			var defaultHandler = function (e) {
-				var item = e.detail.item;
-				this.replicant.value.horizPos = item.getAttribute('data-horiz');
-				this.replicant.value.vertPos = item.getAttribute('data-vert');
-			}.bind(this);
-
-			// Most of the interfaces have the same iron-select logic.
-			this.$.cardinal.addEventListener('iron-select', defaultHandler);
-			this.$.corner.addEventListener('iron-select', defaultHandler);
-			this.$['cardinal-corner'].addEventListener('iron-select', defaultHandler);
-
-			// The vertical-only and horizontal-only interfaces have slightly different logic.
-			this.$.vertical.addEventListener('iron-select', function (e) {
-				var item = e.detail.item;
-				this.replicant.value.vertPos = item.getAttribute('data-vert');
-			}.bind(this));
-
-			this.$.horizontal.addEventListener('iron-select', function (e) {
-				var item = e.detail.item;
-				this.replicant.value.horizPos = item.getAttribute('data-horiz');
-			}.bind(this));
-		},
-
-		_replicantChanged: function (oldVal, newVal) {
-			var defaultHandler = function (item, index) {
-				var vert = item.getAttribute('data-vert');
-				var horiz = item.getAttribute('data-horiz');
-				if (vert === newVal.vertPos && horiz === newVal.horizPos) {
-					var selector = item.parentNode.parentNode; // This is very fragile!
-					selector.select(index);
-					return true;
-				}
-			};
-
-			// Most of the interfaces have the same replicant change handling logic.
-			this.$.cardinal.items.some(defaultHandler);
-			this.$.corner.items.some(defaultHandler);
-			this.$['cardinal-corner'].items.some(defaultHandler);
-
-			// The vertical-only and horizontal-only interfaces have slightly different logic.
-			this.$.vertical.items.some(function (item, index) {
-				var vert = item.getAttribute('data-vert');
-				if (vert === newVal.vertPos) {
-					this.$.vertical.select(index);
-					return true;
-				}
-			}.bind(this));
-
-			this.$.horizontal.items.some(function (item, index) {
-				var horiz = item.getAttribute('data-horiz');
-				if (horiz === newVal.horizPos) {
-					this.$.horizontal.select(index);
-					return true;
-				}
-			}.bind(this));
-		}
-	});
-</script>
+		});
+	</script>
+</dom-module>

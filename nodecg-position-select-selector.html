@@ -5,17 +5,17 @@
 (function () {
 	'use strict';
 
-	var MySelectableBehaviorImpl = {
-		_updateItems: function() {
-			var nodes = this.selectable
-					? Polymer.dom(this).querySelectorAll(this.selectable)
-					: Polymer.dom(this).queryDistributedElements('*');
+	const MySelectableBehaviorImpl = {
+		_updateItems() {
+			let nodes = this.selectable ?
+				Polymer.dom(this).querySelectorAll(this.selectable) :
+				Polymer.dom(this).queryDistributedElements('*');
 			nodes = Array.prototype.filter.call(nodes, this._bindFilterItem);
 			this._setItems(nodes);
 		}
 	};
 
-	var MySelectableBehavior = [
+	const MySelectableBehavior = [
 		Polymer.IronSelectableBehavior,
 		MySelectableBehaviorImpl
 	];
