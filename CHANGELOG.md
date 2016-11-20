@@ -1,3 +1,18 @@
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/NodeCGElements/nodecg-position-select/compare/v0.1.3...v0.2.0) (2016-11-20)
+
+
+### Code Refactoring
+
+* port to NodeCG 0.8 and ES6 ([501f56b](https://github.com/NodeCGElements/nodecg-position-select/commit/501f56b))
+
+
+### BREAKING CHANGES
+
+* No longer supports NodeCG versions lower than 0.8.0
+
+
+
 <a name="0.1.3"></a>
 ## [0.1.3](https://github.com/NodeCGElements/nodecg-position-select/compare/v0.1.2...v0.1.3) (2016-03-19)
 
