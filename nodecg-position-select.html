@@ -178,44 +178,39 @@ See the demo page for examples of all of the above.
 	</template>
 
 	<script>
-		Polymer({
-			is: 'nodecg-position-select',
+		/**
+		 * @customElement
+		 * @polymer
+		 * @appliesMixin Polymer.MutableData
+		 * @appliesMixin Polymer.NodeCGReplicantTargeting
+		 */
+		class NodecgPositionSelect extends Polymer.NodeCGReplicantTargeting(Polymer.MutableData(Polymer.Element)) {
+			static get is() {
+				return 'nodecg-position-select';
+			}
 
-			properties: {
+			static get properties() {
+				return {
+					/**
+					 * The label to show above the controls.
+					 */
+					label: {
+						type: String
+					},
 
-				/**
-				 * The label to show above the controls.
-				 */
-				label: {
-					type: String
-				},
-
-				/**
-				 * The default value to provide to the Replicant.
-				 * Must be an object with `horizPos` and `vertPos` properties.
-				 */
-				replicantDefault: {
-					type: Object,
-					value: {
-						horizPos: 'right',
-						vertPos: 'bottom'
+					/**
+					 * What type of controls to show. Valid values are `corner`, `cardinal`, `cardinal-corner`, `vertical`, and `horizontal`.
+					 */
+					type: {
+						type: String,
+						value: 'corner'
 					}
-				},
-
-				/**
-				 * What type of controls to show. Valid values are `corner`, `cardinal`, `cardinal-corner`, `vertical`, and `horizontal`.
-				 */
-				type: {
-					type: String,
-					value: 'corner'
-				}
-			},
-
-			behaviors: [
-				Polymer.NodeCGReplicantTargetingBehavior
-			],
+				};
+			}
 
 			ready() {
+				super.ready();
+
 				const defaultHandler = function (e) {
 					const item = e.detail.item;
 					this.replicant.value.horizPos = item.getAttribute('data-horiz');
@@ -237,9 +232,9 @@ See the demo page for examples of all of the above.
 					const item = e.detail.item;
 					this.replicant.value.horizPos = item.getAttribute('data-horiz');
 				});
-			},
+			}
 
-			_replicantChanged(newVal) {
+			_replicantValueChanged(newVal) {
 				const defaultHandler = function (item, index) {
 					const vert = item.getAttribute('data-vert');
 					const horiz = item.getAttribute('data-horiz');
@@ -276,6 +271,8 @@ See the demo page for examples of all of the above.
 					return false;
 				});
 			}
-		});
+		}
+
+		customElements.define(NodecgPositionSelect.is, NodecgPositionSelect);
 	</script>
 </dom-module>

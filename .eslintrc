@@ -16,7 +16,9 @@
 			2,
 			{
 				"capIsNewExceptions": [
-					"Polymer"
+					"Polymer",
+					"Polymer.MutableData",
+					"Polymer.NodeCGReplicantTargeting"
 				]
 			}
 		]
