@@ -9,7 +9,10 @@
   "scripts": {
     "test": "npm run static",
     "static": "npm run static:js",
-    "static:js": "eslint -c .eslintrc nodecg-position-select.html test/**/*.html demo/**/*.html"
+    "static:js": "eslint -c .eslintrc nodecg-position-select.html test/**/*.html demo/**/*.html",
+    "prerelease": "npm t",
+    "release": "standard-version",
+    "postrelease": "git push --follow-tags"
   },
   "repository": {
     "type": "git",
@@ -31,6 +34,7 @@
   "devDependencies": {
     "eslint": "^3.10.2",
     "eslint-config-xo": "^0.17.0",
-    "eslint-plugin-html": "^1.7.0"
+    "eslint-plugin-html": "^1.7.0",
+    "standard-version": "^4.4.0"
   }
 }
